@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Engineering Portfolio | Senior Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0e27;
+            --bg-darker: #050812;
+            --bg-card: #1a1f3a;
+            --accent-blue: #00d4ff;
+            --accent-violet: #9d4edd;
+            --accent-cyan: #06ffa5;
+            --accent-purple: #7209b7;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --border-color: #2d3748;
+            --glow-blue: 0 0 20px rgba(0, 212, 255, 0.3);
+            --glow-violet: 0 0 20px rgba(157, 78, 221, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 50%, #1a0033 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -30%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .hero .description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--glow-blue);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-violet);
+            border-color: var(--accent-cyan);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-violet));
+        }
+
+        /* About Section */
+        #about {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.5) 0%, rgba(5, 8, 18, 0.8) 100%);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow-blue);
+            transform: translateY(-5px);
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Phases */
+        #phases {
+            background: linear-gradient(135deg, rgba(5, 8, 18, 0.8) 0%, rgba(10, 14, 39, 0.5) 100%);
+            border-top: 1px solid rgba(157, 78, 221, 0.1);
+        }
+
+        .phases-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .phase-card {
+            background: linear-gradient(135deg, rgba(114, 9, 183, 0.1) 0%, rgba(26, 31, 58, 0.6) 100%);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .phase-card:hover::before {
+            left: 100%;
+        }
+
+        .phase-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: var(--glow-violet);
+            transform: translateY(-10px);
+        }
+
+        .phase-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-blue));
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--glow-violet);
+        }
+
+        .phase-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .phase-duration {
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .phase-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .phase-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--accent-cyan);
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--accent-cyan);
+        }
+
+        /* Weekly Breakdown */
+        #weekly {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.5) 0%, rgba(5, 8, 18, 0.8) 100%);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .weekly-item {
+            background: rgba(26, 31, 58, 0.6);
+            border-left: 3px solid var(--accent-blue);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .weekly-item:hover {
+            border-left-color: var(--accent-cyan);
+            box-shadow: var(--glow-blue);
+            transform: translateX(5px);
+        }
+
+        .weekly-item h4 {
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .weekly-item .hours {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: linear-gradient(135deg, rgba(5, 8, 18, 0.8) 0%, rgba(10, 14, 39, 0.5) 100%);
+            border-top: 1px solid rgba(157, 78, 221, 0.1);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(157, 78, 221, 0.2);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--accent-violet);
+            box-shadow: var(--glow-violet);
+        }
+
+        .skill-category h4 {
+            color: var(--accent-violet);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: rgba(114, 9, 183, 0.2);
+            border: 1px solid rgba(157, 78, 221, 0.5);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(157, 78, 221, 0.3);
+            border-color: var(--accent-violet);
+        }
+
+        /* Artifacts */
+        #artifacts {
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.5) 0%, rgba(5, 8, 18, 0.8) 100%);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .artifacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .artifact-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(114, 9, 183, 0.05) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .artifact-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--glow-blue);
+            transform: translateY(-5px);
+        }
+
+        .artifact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .artifact-card h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .artifact-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Success Factors */
+        #success {
+            background: linear-gradient(135deg, rgba(5, 8, 18, 0.8) 0%, rgba(10, 14, 39, 0.5) 100%);
+            border-top: 1px solid rgba(157, 78, 221, 0.1);
+        }
+
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .factor-card {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .factor-card::after {
+            content: '✓';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .factor-card:hover::after {
+            opacity: 1;
+        }
+
+        .factor-card:hover {
+            border-color: var(--accent-violet);
+            box-shadow: var(--glow-violet);
+        }
+
+        .factor-card h4 {
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 8, 18, 0.95);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        footer .meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        footer .meta span {
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .phases-container,
+            .skills-grid,
+            .artifacts-grid,
+            .factors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-violet);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#phases">Curriculum</a></li>
+            <li><a href="#bonus">Bonus</a></li>
+            <li><a href="#weekly">Commitment</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#success">Success</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>LLM Engineering Mastery</h1>
+            <div class="subtitle">6-Month Production-Grade Systems Curriculum</div>
+            <p class="description">
+                From foundation to production. 70% building, 30% learning. 
+                A realistic, unpolished path to genuine senior-level LLM engineering.
+            </p>
+            <a href="#about" class="cta-button">Explore the Journey</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>The Vision</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+            A comprehensive 24-week syllabus designed to transform ambitious engineers into production-ready LLM specialists. 
+            This isn't theory—it's pragmatic, real-world systems thinking with hands-on building at every phase.
+        </p>
+        <div class="about-grid">
+            <div class="stat-card">
+                <div class="number">24</div>
+                <div class="label">Weeks of Intensive Study</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">6</div>
+                <div class="label">Distinct Phases</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">70%</div>
+                <div class="label">Build Focus</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">16–23</div>
+                <div class="label">Hours per Week</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phases Section -->
+    <section id="phases">
+        <h2>Complete Curriculum</h2>
+        
+        <!-- Phase 1 -->
+        <div class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number-large">1</div>
+                <div>
+                    <h3>LLM Behavior + Reliability Foundations</h3>
+                    <p class="phase-duration">Weeks 1–3</p>
+                </div>
+            </div>
+            
+            <div class="week-card">
+                <h4>Week 1: LLM Behavior (Now with Realism)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Tokenization, temperature/sampling, output instability</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Tokenization and how models think</li>
+                            <li>Sampling, temperature, and why outputs are unstable</li>
+                            <li>Why outputs will betray you at 3 AM</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://huggingface.co/learn/llm-course" target="_blank">Hugging Face LLM Course</a> - tokenization, transformers basics, generation behavior</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Prompt benchmarking harness across models</li>
+                            <li>Log EVERYTHING: input, parameters, output</li>
+                            <li>Implement structured logging (JSON format)</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Log weird outputs and categorize them</li>
+                            <li>Track variance across temperature settings</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 1 Deliverables</h5>
+                    <ul>
+                        <li><strong>Logging Harness:</strong> Runnable script logging prompts, parameters, outputs</li>
+                        <li><strong>Variance Report:</strong> Temperature variance analysis with examples</li>
+                        <li><strong>Failure Log:</strong> Categorized weird outputs with patterns identified</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 2: Context Engineering (Not Prompt Cosplay)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> System prompts, role separation, context packing</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>System prompts and their actual impact</li>
+                            <li>Role separation and context structure</li>
+                            <li>Context packing tradeoffs</li>
+                        </ul>
+                        <p class="resource"><strong>Resources:</strong> <a href="https://developers.openai.com/cookbook" target="_blank">OpenAI Cookbook</a> - prompting patterns, structured outputs, evals; <a href="https://www.anthropic.com/engineering" target="_blank">Anthropic Prompting & Context Engineering</a> - system prompts, context design</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Versioned prompt system with test cases per version</li>
+                            <li>Regression checks and prompt diff tracking</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Track prompt regressions—what changed, what broke?</li>
+                            <li>Measure performance delta between versions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 2 Deliverables</h5>
+                    <ul>
+                        <li><strong>Prompt Version History:</strong> Git-like tracking with test cases per version</li>
+                        <li><strong>Regression Analysis:</strong> Before/after performance metrics with delta measurement</li>
+                        <li><strong>Context Packing Report:</strong> Trade-off analysis between context richness and token efficiency</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 3: Structured Outputs + Failure Handling</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Schema validation, retry strategies, partial failures</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Schema validation and JSON extraction</li>
+                            <li>Retry strategies and guardrails</li>
+                            <li>Partial failure handling</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://developers.openai.com/cookbook" target="_blank">OpenAI Cookbook - Structured Outputs</a></p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Strict JSON extraction service with retry logic (exponential backoff)</li>
+                            <li>Partial failure handling and invalid output logging dashboard</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Intentionally break it with malformed inputs</li>
+                            <li>Log all failures and recovery attempts</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 3 Deliverables</h5>
+                    <ul>
+                        <li><strong>JSON Extraction Service:</strong> Strict schema validation with retry logic implementation</li>
+                        <li><strong>Failure Dashboard:</strong> Invalid outputs categorized with failure rates and recovery time</li>
+                        <li><strong>Guardrails Catalog:</strong> Documented retry strategies with exponential backoff curves</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number-large">2</div>
+                <div>
+                    <h3>RAG + Data Pipelines</h3>
+                    <p class="phase-duration">Weeks 4–9</p>
+                </div>
+            </div>
+            
+            <div class="week-card">
+                <h4>Week 4: RAG Basics + Ingestion Reality</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Data ingestion, document handling, metadata extraction</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Ingestion pipelines and real-world challenges</li>
+                            <li>Document formats (PDFs are evil, FYI)</li>
+                            <li>Metadata extraction strategies</li>
+                        </ul>
+                        <p class="resource"><strong>Resources:</strong> <a href="https://docs.llamaindex.ai" target="_blank">LlamaIndex Docs</a> - ingestion, chunking, pipelines; <a href="https://dataintensive.com" target="_blank">Designing Data-Intensive Applications</a> - data modeling, pipelines, system thinking</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Ingestion pipeline handling duplicate detection and removal</li>
+                            <li>Corrupted file recovery and missing metadata logging</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>📊 Data Quality</h5>
+                        <ul>
+                            <li>Data cleaning pipeline and quality metrics for ingested data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 4 Deliverables</h5>
+                    <ul>
+                        <li><strong>Ingestion Pipeline:</strong> End-to-end document processing with duplicate detection</li>
+                        <li><strong>Data Quality Report:</strong> Ingestion metrics showing success rate, error types, recovery actions</li>
+                        <li><strong>Metadata Extraction Log:</strong> Successfully extracted vs missing metadata with patterns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 5: Chunking + Data Quality</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Chunking strategies, semantic fragmentation, dataset versioning</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Chunking strategies and tradeoffs</li>
+                            <li>Semantic fragmentation and context windows</li>
+                            <li>Dataset versioning and tagging approaches</li>
+                            <li>Overlap strategies and their impact on retrieval</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://docs.llamaindex.ai" target="_blank">LlamaIndex Docs - Chunking Strategies</a> - chunking optimization, experimentation</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Chunking experiments with multiple strategies</li>
+                            <li>Track chunk overlap issues and semantic fragmentation</li>
+                            <li>Implement dataset versioning (simple tags work)</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>📊 Metrics</h5>
+                        <ul>
+                            <li>Chunk quality evaluation and coverage analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 5 Deliverables</h5>
+                    <ul>
+                        <li><strong>Chunking Analysis:</strong> Multiple strategy comparison (fixed size, semantic, sliding window) with overlap metrics</li>
+                        <li><strong>Dataset Versioning System:</strong> Git-like tags with changelog and rollback capability</li>
+                        <li><strong>Fragmentation Report:</strong> Semantic coherence analysis showing optimal chunk boundaries</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 6: Hybrid Retrieval</h4>
+                <p class="focus-areas"><strong>Focus:</strong> BM25 + vector search, metadata filtering, schema design</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>BM25 keyword-based search fundamentals</li>
+                            <li>Vector search and semantic similarity</li>
+                            <li>Combining hybrid approaches for better recall</li>
+                            <li>Metadata filtering strategies and schema design</li>
+                        </ul>
+                        <p class="resource"><strong>Resources:</strong> <a href="https://www.pinecone.io/learn/" target="_blank">Pinecone RAG Series</a> - retrieval strategies, hybrid search; <a href="https://weaviate.io/developers/weaviate" target="_blank">Weaviate Docs</a> - hybrid search, filtering, schema design</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>BM25 + Vector search integration</li>
+                            <li>Metadata filtering: time-based, source, type-based</li>
+                            <li>Schema design that actually scales</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Test edge cases with malformed metadata</li>
+                            <li>Measure query coverage with hybrid vs single approach</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 6 Deliverables</h5>
+                    <ul>
+                        <li><strong>Hybrid Retrieval System:</strong> BM25 + vector search integration with metadata filtering</li>
+                        <li><strong>Query Coverage Analysis:</strong> Comparison table showing recall improvement with hybrid approach</li>
+                        <li><strong>Schema Design Docs:</strong> Database schema with indexing strategy and query performance metrics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 7: Reranking</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Reranker integration, quality comparison, latency analysis</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>How rerankers work: semantic vs BM25 quality</li>
+                            <li>Reranker models and their tradeoffs</li>
+                            <li>Cost vs quality: when reranking pays off</li>
+                            <li>Latency impact analysis for production</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://www.pinecone.io/learn/" target="_blank">Pinecone Reranking Guide</a> - reranking strategies, quality metrics</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Reranker integration</li>
+                            <li>Comparison analysis: before/after reranking quality, latency impact</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Intentionally inject irrelevant docs</li>
+                            <li>Measure reranker robustness</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 7 Deliverables</h5>
+                    <ul>
+                        <li><strong>Reranker Comparison:</strong> Before/after quality metrics showing precision and MRR improvement</li>
+                        <li><strong>Latency Impact Analysis:</strong> Trade-off graph between quality gains and latency cost</li>
+                        <li><strong>Robustness Test Report:</strong> Reranker performance against adversarial/irrelevant document injections</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 8: Retrieval Evaluation (Not Fake Metrics)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Evaluation datasets, precision/recall, real metrics</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Evaluation dataset creation best practices</li>
+                            <li>Precision@k, Recall@k, and MRR metrics</li>
+                            <li>Human vs automatic evaluation disagreement</li>
+                            <li>Real-world evaluation challenges</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://docs.llamaindex.ai" target="_blank">LlamaIndex Evaluation Docs</a> - evaluation frameworks, metrics</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Evaluation dataset (50+ queries minimum)</li>
+                            <li>Real metrics: Precision@k, Recall@k, MRR (Mean Reciprocal Rank)</li>
+                            <li>Compare human labels vs auto labels and measure disagreement</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 8 Deliverables</h5>
+                    <ul>
+                        <li><strong>Evaluation Dataset:</strong> 50+ queries with human-labeled ground truth and relevance judgments</li>
+                        <li><strong>Metric Comparison Report:</strong> Human vs automatic evaluation agreement analysis with correlation metrics</li>
+                        <li><strong>Benchmark Baseline:</strong> Precision@5, Recall@10, MRR scores with expected thresholds</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 9: Trustworthy Answers</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Citation systems, abstention logic, confidence scoring</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Citation system (track sources) and abstention logic (say "I don't know")</li>
+                            <li>Confidence scoring system</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://www.anthropic.com/engineering" target="_blank">Anthropic Context Engineering</a> - citation strategies, confidence scoring</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Force hallucination scenarios and measure how often system refuses to answer</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 9 Deliverables</h5>
+                    <ul>
+                        <li><strong>Citation System:</strong> Source tracking with citation accuracy and hallucination detection</li>
+                        <li><strong>Confidence Scoring Implementation:</strong> Calibrated confidence metrics with accuracy curves</li>
+                        <li><strong>Abstention Analysis:</strong> Frequency analysis of system refusals showing precision of refusal logic</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number-large">3</div>
+                <div>
+                    <h3>LLMOps + Evals + Cost + Latency</h3>
+                    <p class="phase-duration">Weeks 10–15</p>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 10: Observability</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Tracing infrastructure, structured logging, latency tracking</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Tracing infrastructure (LangSmith or Phoenix)</li>
+                            <li>Structured logs: prompt (versioned), retrieval results, LLM output, latency at each stage</li>
+                        </ul>
+                        <p class="resource"><strong>Resources:</strong> <a href="https://docs.langchain.com/langsmith" target="_blank">LangSmith Docs</a> - tracing, evaluation workflows; <a href="https://docs.arize.com/phoenix" target="_blank">Arize Phoenix</a> - observability, debugging</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Replay failures for debugging and build dashboards showing failure patterns</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 10 Deliverables</h5>
+                    <ul>
+                        <li><strong>Tracing Dashboard:</strong> LangSmith/Phoenix integration showing end-to-end request traces</li>
+                        <li><strong>Structured Logging System:</strong> Formatted logs with prompt version, retrieval results, latency breakdown</li>
+                        <li><strong>Failure Replay Toolkit:</strong> System to replay failed requests with full context for debugging</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 11: Evaluation Systems (Not Just Tools)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Eval philosophy, LLM-as-judge, accuracy measurement</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Eval philosophy—what should you measure?</li>
+                            <li>When LLM evals fail</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://developers.openai.com/cookbook/topic/evals" target="_blank">OpenAI Evals Cookbook</a> - eval design, LLM-as-judge</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>LLM-as-judge evaluation system</li>
+                            <li>Compare LLM judgment to human judgment: agreement, disagreement, eval accuracy</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 11 Deliverables</h5>
+                    <ul>
+                        <li><strong>LLM-as-Judge Framework:</strong> Prompt design and validation scoring rubric</li>
+                        <li><strong>Judge Calibration Report:</strong> Human vs LLM judge agreement analysis with disagreement reasons</li>
+                        <li><strong>Eval Philosophy Doc:</strong> Documented approach to what should be measured and why</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 12: Experimentation</h4>
+                <p class="focus-areas"><strong>Focus:</strong> A/B testing, regression detection, statistical significance</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>A/B testing fundamentals and experimental design</li>
+                            <li>Statistical significance and p-values</li>
+                            <li>Regression detection strategies</li>
+                            <li>Baseline establishment and drift detection</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>A/B testing system with baseline metrics</li>
+                            <li>Regression detection pipeline and statistical significance testing</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Deliberately introduce regressions</li>
+                            <li>Verify system detects them</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 12 Deliverables</h5>
+                    <ul>
+                        <li><strong>A/B Testing System:</strong> Baseline metrics with statistical significance testing framework</li>
+                        <li><strong>Regression Detection Pipeline:</strong> Automated alerts when metrics fall below threshold</li>
+                        <li><strong>Experiment Report:</strong> p-values, confidence intervals, and power analysis documentation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 13: Cost Engineering (Money Exists)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Token tracking, cost metrics, quality tradeoffs</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Token tracking dashboard with cost per request and per user metrics</li>
+                            <li>Cost vs quality tradeoff analysis</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://platform.openai.com/docs/guides/production-best-practices" target="_blank">OpenAI Production Best Practices</a> - cost optimization, production patterns</p>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 13 Deliverables</h5>
+                    <ul>
+                        <li><strong>Token Tracking Dashboard:</strong> Cost per request, per user, per model with trends over time</li>
+                        <li><strong>Cost Optimization Report:</strong> Model selection analysis showing cost vs quality trade-offs</li>
+                        <li><strong>Budget Forecast:</strong> Projected monthly costs with scaling scenarios</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 14: Latency Engineering</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Async handling, streaming responses, percentile metrics</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Async request handling and streaming responses</li>
+                            <li>Latency metrics: P50 (median), P95 (tail), P99 (extreme tail)</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://platform.openai.com/docs/guides/latency-optimization" target="_blank">Latency Optimization Guide</a> - optimization strategies, latency reduction</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Simulate slow APIs and test timeout handling</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 14 Deliverables</h5>
+                    <ul>
+                        <li><strong>Async Request Handler:</strong> Queue-based request processing with priority levels</li>
+                        <li><strong>Latency Metrics Dashboard:</strong> P50, P95, P99 percentiles with tail latency analysis</li>
+                        <li><strong>Timeout Resilience Report:</strong> Graceful degradation test results under slow API conditions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 15: Model Routing</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Routing logic, cost constraints, complexity-based routing</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Routing logic strategies and patterns</li>
+                            <li>Cost-aware routing and optimization</li>
+                            <li>Query complexity detection methods</li>
+                            <li>Confidence-based routing decisions</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Routing system based on query complexity, confidence scores, cost constraints</li>
+                            <li>Route to different models/APIs strategically</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Test routing with malformed requests</li>
+                            <li>Measure fallback behavior when preferred model is unavailable</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 15 Deliverables</h5>
+                    <ul>
+                        <li><strong>Routing System:</strong> Logic-based routing (complexity/cost/confidence) with fallback chains</li>
+                        <li><strong>Model Performance Comparison:</strong> Quality metrics by model with optimal routing thresholds</li>
+                        <li><strong>Fallback Test Report:</strong> System behavior when primary model unavailable or degraded</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number-large">4</div>
+                <div>
+                    <h3>Agents + Control + HITL</h3>
+                    <p class="phase-duration">Weeks 16–19</p>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 16: Tool Use + Failure Handling</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Tool calling, failure recovery, idempotency</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Tool calling infrastructure and protocols</li>
+                            <li>Error handling and recovery strategies</li>
+                            <li>Idempotency and state management</li>
+                            <li>Tool validation and security constraints</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://platform.openai.com/docs/guides/tools" target="_blank">OpenAI Agents / Tools Docs</a> - tool implementation, error handling</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Tool calling infrastructure</li>
+                            <li>Tool failure handling: retry logic, fallback strategies, idempotency checks</li>
+                            <li>Tool logging and monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Force tool timeouts and test recovery</li>
+                            <li>Test duplicate tool calls and idempotency</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 16 Deliverables</h5>
+                    <ul>
+                        <li><strong>Tool Calling Infrastructure:</strong> Schema definition with automatic validation and error handling</li>
+                        <li><strong>Tool Execution Log:</strong> Complete trace of tool calls with failures, retries, and idempotency checks</li>
+                        <li><strong>Recovery Strategy Documentation:</strong> Fallback logic and retry patterns with test results</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 17: Stateful Orchestration</h4>
+                <p class="focus-areas"><strong>Focus:</strong> State management, checkpointing, recovery</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Workflow state management patterns</li>
+                            <li>Checkpointing and persistence strategies</li>
+                            <li>Recovery and replay mechanisms</li>
+                            <li>State consistency and distributed concerns</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://www.langchain.com/langgraph" target="_blank">LangGraph</a> - stateful workflows, orchestration</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Workflow state management with checkpointing system</li>
+                            <li>Recovery from crashes: resume from checkpoint, replay logic, state consistency checks</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Simulate crashes at different workflow stages</li>
+                            <li>Test recovery and state consistency</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 17 Deliverables</h5>
+                    <ul>
+                        <li><strong>Workflow Orchestration System:</strong> LangGraph-based stateful workflow with checkpoint persistence</li>
+                        <li><strong>Crash Recovery Test Suite:</strong> Simulated failures at each stage with recovery verification</li>
+                        <li><strong>State Consistency Report:</strong> Analysis showing no data loss or corruption on recovery</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 18: Multi-Agent (Skeptically)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Multi-agent patterns, comparative analysis</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Multi-agent patterns and pitfalls</li>
+                            <li>When multi-agent is actually useful (hint: rarely)</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Multi-agent experiment—CRITICALLY measure if it's actually better</li>
+                            <li>Single agent vs multi-agent quality, cost, and latency comparison</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://microsoft.github.io/autogen/" target="_blank">Microsoft AutoGen</a> - multi-agent experiments</p>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 18 Deliverables</h5>
+                    <ul>
+                        <li><strong>Multi-Agent Implementation:</strong> Team of specialized agents with communication protocol</li>
+                        <li><strong>Comparative Analysis:</strong> Single-agent vs multi-agent quality, cost, and latency benchmark</li>
+                        <li><strong>Honest Assessment Memo:</strong> Was multi-agent actually better? Recommendation with reasoning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 19: Human-in-the-Loop</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Approval systems, audit logging, rollback capability</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Human-in-the-loop workflow design patterns</li>
+                            <li>Audit logging and compliance requirements</li>
+                            <li>Decision tracking and rollback strategies</li>
+                            <li>User interface considerations for approvals</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Approval system for high-stakes decisions</li>
+                            <li>Audit logging (track all decisions)</li>
+                            <li>Rollback capability: revert decisions and replay with human override</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Test audit log integrity under concurrent operations</li>
+                            <li>Verify rollback consistency across system</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 19 Deliverables</h5>
+                    <ul>
+                        <li><strong>HITL Approval Workflow:</strong> UI and backend for human decision points with timeout handling</li>
+                        <li><strong>Audit Log System:</strong> Immutable transaction log showing all approvals, rejections, and overrides</li>
+                        <li><strong>Rollback Capability Demo:</strong> Proof of ability to revert decisions and replay with human input</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 5 -->
+        <div class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number-large">5</div>
+                <div>
+                    <h3>Fine-Tuning</h3>
+                    <p class="phase-duration">Weeks 20–21</p>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 20: PEFT + Dataset Reality</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Parameter-efficient fine-tuning, dataset creation, problem analysis</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Parameter-Efficient Fine-Tuning (PEFT), LoRA, QLoRA, and alternatives</li>
+                            <li>When fine-tuning actually helps</li>
+                        </ul>
+                        <p class="resource"><strong>Resources:</strong> <a href="https://github.com/huggingface/peft" target="_blank">Hugging Face PEFT</a> - parameter-efficient fine-tuning; <a href="https://fullstackdeeplearning.com" target="_blank">Full Stack Deep Learning</a> - when NOT to fine-tune</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Small fine-tuning experiment with dataset creation pipeline</li>
+                            <li>Data collection, cleaning, and quality checks</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 20 Deliverables</h5>
+                    <ul>
+                        <li><strong>Fine-Tuning Experiment:</strong> LoRA implementation with dataset creation and quality assurance</li>
+                        <li><strong>Fine-Tune Performance Report:</strong> Quality metrics showing improvement on target domain</li>
+                        <li><strong>When-to-FT Decision Framework:</strong> Analysis of problem characteristics determining fine-tuning viability</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 21: RAG vs Fine-Tuning (Real Comparison)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Comparative analysis, tradeoff evaluation</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>RAG vs fine-tuning tradeoffs</li>
+                            <li>Quality metrics comparison methodology</li>
+                            <li>Cost-benefit analysis frameworks</li>
+                            <li>Maintenance burden considerations</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Intentionally build a bad fine-tune and compare RAG vs fine-tuned model</li>
+                            <li>Compare on: quality metrics, latency, cost, maintainability</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>📝 Deliverable</h5>
+                        <ul>
+                            <li>Tradeoff memo: latency comparison, cost analysis, maintenance burden, recommendation with reasoning</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 21 Deliverables</h5>
+                    <ul>
+                        <li><strong>RAG vs Fine-Tuning Benchmark:</strong> Parallel systems showing quality, latency, and cost metrics</li>
+                        <li><strong>Decision Matrix Memo:</strong> Detailed analysis of trade-offs with pros/cons and recommendation</li>
+                        <li><strong>Maintenance Analysis:</strong> Long-term operational burden comparison with update frequency and rollback complexity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 6 -->
+        <div class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number-large">6</div>
+                <div>
+                    <h3>Deployment + Scaling + Breaking Things Professionally</h3>
+                    <p class="phase-duration">Weeks 22–24</p>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 22: API + System Design</h4>
+                <p class="focus-areas"><strong>Focus:</strong> System design patterns, service boundaries, scalability</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>System design patterns and best practices</li>
+                            <li>Service boundaries and microservices architecture</li>
+                            <li>Scalability fundamentals and bottleneck analysis</li>
+                            <li>API design principles and versioning</li>
+                        </ul>
+                        <p class="resource"><strong>Resources:</strong> <a href="https://fastapi.tiangolo.com" target="_blank">FastAPI Docs</a> - building production APIs; <a href="https://github.com/donnemartin/system-design-primer" target="_blank">System Design Primer (GitHub)</a> - queues, scaling patterns, rate limiting</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>FastAPI service with clean service boundaries</li>
+                            <li>Modular architecture and proper error handling</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Test service degradation scenarios</li>
+                            <li>Simulate dependency failures</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 22 Deliverables</h5>
+                    <ul>
+                        <li><strong>FastAPI Service Architecture:</strong> Clean service design with proper error handling and graceful degradation</li>
+                        <li><strong>API Documentation:</strong> OpenAPI spec with versioning strategy and backwards compatibility plan</li>
+                        <li><strong>Deployment Configuration:</strong> Docker setup and kubernetes manifests with service boundaries</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 23: Security + Abuse Prevention</h4>
+                <p class="focus-areas"><strong>Focus:</strong> OWASP, prompt injection, data privacy</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>OWASP Top 10 for LLMs</li>
+                            <li>Prompt injection attacks and defenses</li>
+                            <li>Data privacy considerations</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank">OWASP Top 10 for LLMs</a> - security patterns, attack prevention</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build</h5>
+                        <ul>
+                            <li>Prompt injection defense system with tool access control</li>
+                            <li>Role-based permissions, tool allowlisting, output filtering, sanitization</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>🔍 Failure Engineering</h5>
+                        <ul>
+                            <li>Attempt common prompt injection techniques</li>
+                            <li>Test unauthorized tool access attempts</li>
+                            <li>Verify output sanitization effectiveness</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 23 Deliverables</h5>
+                    <ul>
+                        <li><strong>Security Audit Report:</strong> OWASP Top 10 for LLMs assessment with vulnerability mapping</li>
+                        <li><strong>Injection Defense System:</strong> Prompt sanitization and tool access control with test cases</li>
+                        <li><strong>Penetration Test Results:</strong> Proof of security measures against common attack vectors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="week-card">
+                <h4>Week 24: Scaling + Production Resilience (CRITICAL)</h4>
+                <p class="focus-areas"><strong>Focus:</strong> Concurrency, rate limiting, resilience patterns</p>
+                <div class="week-content">
+                    <div class="content-block">
+                        <h5>📚 Learn</h5>
+                        <ul>
+                            <li>Concurrency patterns and async/await fundamentals</li>
+                            <li>Queue systems and message brokers (Redis/Celery)</li>
+                            <li>Rate limiting algorithms and implementations</li>
+                            <li>Circuit breakers and bulkheads</li>
+                            <li>Resilience patterns under load</li>
+                        </ul>
+                        <p class="resource"><strong>Resource:</strong> <a href="https://docs.vllm.ai" target="_blank">vLLM Serving</a> - high-performance serving</p>
+                    </div>
+                    <div class="content-block">
+                        <h5>🛠️ Build (CRITICAL)</h5>
+                        <ul>
+                            <li>Concurrency handling and queue system (Redis/Celery)</li>
+                            <li>Rate limiting: per-user, global limits, token bucket algorithm</li>
+                            <li>Retry logic with exponential backoff and circuit breakers</li>
+                        </ul>
+                    </div>
+                    <div class="content-block">
+                        <h5>📊 Testing</h5>
+                        <ul>
+                            <li>Load testing with realistic traffic patterns</li>
+                            <li>Chaos engineering and failure injection</li>
+                            <li>Stress testing for queue depth and system limits</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="weekly-artifacts">
+                    <h5>📋 Week 24 Deliverables</h5>
+                    <ul>
+                        <li><strong>Concurrency & Queue System:</strong> Redis/Celery implementation with priority levels and dead-letter handling</li>
+                        <li><strong>Load Testing Report:</strong> Traffic simulation showing system stability under 10x expected load</li>
+                        <li><strong>Resilience Test Results:</strong> Chaos engineering experiments with service recovery times and SLA compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .phase-section {
+                margin-bottom: 4rem;
+                padding-bottom: 2rem;
+                border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            }
+
+            .phase-header {
+                display: flex;
+                gap: 2rem;
+                align-items: flex-start;
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 2px solid rgba(157, 78, 221, 0.2);
+            }
+
+            .phase-number-large {
+                font-size: 3rem;
+                font-weight: 800;
+                background: linear-gradient(135deg, var(--accent-violet), var(--accent-blue));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                min-width: 80px;
+            }
+
+            .phase-header h3 {
+                font-size: 1.8rem;
+                color: var(--text-primary);
+                margin-bottom: 0.5rem;
+            }
+
+            .phase-header .phase-duration {
+                color: var(--accent-cyan);
+                font-size: 1rem;
+                font-weight: 600;
+            }
+
+            .week-card {
+                background: rgba(26, 31, 58, 0.4);
+                border: 1px solid rgba(0, 212, 255, 0.15);
+                border-radius: 0.75rem;
+                padding: 2rem;
+                margin-bottom: 1.5rem;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .week-card:hover {
+                border-color: rgba(0, 212, 255, 0.4);
+                background: rgba(26, 31, 58, 0.6);
+            }
+
+            .week-card h4 {
+                color: var(--accent-blue);
+                font-size: 1.2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .focus-areas {
+                color: var(--accent-cyan);
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+                font-weight: 500;
+            }
+
+            .week-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .content-block h5 {
+                color: var(--accent-violet);
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .content-block ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .content-block li {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+                padding-left: 1.5rem;
+                position: relative;
+            }
+
+            .content-block li::before {
+                content: '▸';
+                position: absolute;
+                left: 0;
+                color: var(--accent-cyan);
+                font-weight: bold;
+            }
+
+            .resource {
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid rgba(157, 78, 221, 0.2);
+            }
+
+            .resource a {
+                color: var(--accent-blue);
+                text-decoration: none;
+                font-style: italic;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+            }
+
+            .resource a:hover {
+                color: var(--accent-cyan);
+                border-bottom-color: var(--accent-cyan);
+                text-decoration: underline;
+            }
+
+            .resource em {
+                color: var(--accent-blue);
+                font-style: italic;
+                font-weight: 600;
+            }
+
+            .weekly-artifacts {
+                background: rgba(0, 212, 255, 0.05);
+                border-left: 3px solid var(--accent-cyan);
+                padding: 1.5rem;
+                margin-top: 1.5rem;
+                border-radius: 0.5rem;
+            }
+
+            .weekly-artifacts h5 {
+                color: var(--accent-cyan);
+                font-size: 0.95rem;
+                margin-bottom: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .weekly-artifacts ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .weekly-artifacts li {
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                margin-bottom: 0.5rem;
+                padding-left: 1.5rem;
+                position: relative;
+            }
+
+            .weekly-artifacts li::before {
+                content: '▪';
+                position: absolute;
+                left: 0;
+                color: var(--accent-cyan);
+                font-weight: bold;
+            }
+
+            .weekly-artifacts strong {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+        </style>
+    </section>
+
+    <!-- Bonus Materials Section -->
+    <section id="bonus" style="background: linear-gradient(135deg, rgba(5, 8, 18, 0.8) 0%, rgba(10, 14, 39, 0.5) 100%); border-top: 1px solid rgba(157, 78, 221, 0.1);">
+        <h2>Bonus Materials: The Stuff That Actually Makes You Dangerous</h2>
+        <div class="bonus-grid">
+            <div class="bonus-card">
+                <h4>🔥 Debugging + Failure Thinking</h4>
+                <p class="bonus-resource"><strong>Resource:</strong> <a href="https://sre.google/sre-book/table-of-contents/" target="_blank">Google SRE Book (Free)</a></p>
+                <ul>
+                    <li>How to think about failure</li>
+                    <li>Monitoring and observability</li>
+                    <li>Reliability engineering principles</li>
+                    <li>Postmortem culture</li>
+                </ul>
+            </div>
+
+            <div class="bonus-card">
+                <h4>🧨 Experimentation Mindset</h4>
+                <p class="bonus-resource"><strong>Resource:</strong> <a href="https://huyenchip.com" target="_blank">Chip Huyen's Blog + Book</a></p>
+                <ul>
+                    <li>ML systems thinking</li>
+                    <li>Experimentation frameworks</li>
+                    <li>Data engineering for ML</li>
+                </ul>
+            </div>
+        </div>
+
+        <style>
+            .bonus-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .bonus-card {
+                background: rgba(26, 31, 58, 0.6);
+                border: 1px solid rgba(157, 78, 221, 0.3);
+                padding: 2rem;
+                border-radius: 0.75rem;
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+            }
+
+            .bonus-card:hover {
+                border-color: var(--accent-violet);
+                box-shadow: var(--glow-violet);
+            }
+
+            .bonus-card h4 {
+                color: var(--accent-blue);
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .bonus-resource {
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            }
+
+            .bonus-resource a {
+                color: var(--accent-cyan);
+                text-decoration: none;
+                font-style: italic;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(6, 255, 165, 0.3);
+            }
+
+            .bonus-resource a:hover {
+                color: var(--accent-blue);
+                border-bottom-color: var(--accent-blue);
+                text-decoration: underline;
+            }
+
+            .bonus-resource em {
+                color: var(--accent-cyan);
+            }
+
+            .bonus-card ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .bonus-card li {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+                padding-left: 1.5rem;
+                position: relative;
+            }
+
+            .bonus-card li::before {
+                content: '▸';
+                position: absolute;
+                left: 0;
+                color: var(--accent-cyan);
+            }
+        </style>
+    </section>
+
+    <!-- Weekly Commitment -->
+    <section id="weekly">
+        <h2>Weekly Commitment</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+            The golden rule: 30% reading, 70% building. This is what separates people who actually learn 
+            from people who consume content.
+        </p>
+        <div class="weekly-grid">
+            <div class="weekly-item">
+                <h4>Learning</h4>
+                <div class="hours">6–8 hrs</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Focused resources, not rabbit holes</p>
+            </div>
+            <div class="weekly-item">
+                <h4>Building</h4>
+                <div class="hours">8–12 hrs</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Hands-on implementation and iteration</p>
+            </div>
+            <div class="weekly-item">
+                <h4>Evaluation</h4>
+                <div class="hours">2–3 hrs</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Testing, metrics, and validation</p>
+            </div>
+            <div class="weekly-item">
+                <h4>Total</h4>
+                <div class="hours">16–23 hrs</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Consistent, sustainable pace</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Technical Skills Developed</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h4>LLM & Prompting</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">Tokenization</span>
+                    <span class="skill-tag">Prompt Engineering</span>
+                    <span class="skill-tag">Structured Outputs</span>
+                    <span class="skill-tag">Temperature/Sampling</span>
+                    <span class="skill-tag">Model Routing</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>RAG Systems</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">Document Ingestion</span>
+                    <span class="skill-tag">Chunking Strategies</span>
+                    <span class="skill-tag">BM25 + Vector Search</span>
+                    <span class="skill-tag">Reranking</span>
+                    <span class="skill-tag">Metadata Filtering</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>Observability & Evals</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">Tracing Infrastructure</span>
+                    <span class="skill-tag">LLM-as-Judge</span>
+                    <span class="skill-tag">Metrics Design</span>
+                    <span class="skill-tag">A/B Testing</span>
+                    <span class="skill-tag">Regression Detection</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>Agent Systems</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">Tool Use & Calling</span>
+                    <span class="skill-tag">State Management</span>
+                    <span class="skill-tag">Workflow Orchestration</span>
+                    <span class="skill-tag">Error Recovery</span>
+                    <span class="skill-tag">HITL Workflows</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>Production Systems</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">FastAPI</span>
+                    <span class="skill-tag">Async Handling</span>
+                    <span class="skill-tag">Rate Limiting</span>
+                    <span class="skill-tag">Circuit Breakers</span>
+                    <span class="skill-tag">Queue Systems</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4>Cost & Performance</h4>
+                <div class="skill-list">
+                    <span class="skill-tag">Cost Engineering</span>
+                    <span class="skill-tag">Latency Optimization</span>
+                    <span class="skill-tag">Token Tracking</span>
+                    <span class="skill-tag">Load Testing</span>
+                    <span class="skill-tag">Concurrency Patterns</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Factors -->
+    <section id="success">
+        <h2>What You'll Have</h2>
+        <div class="factors-grid">
+            <div class="factor-card">
+                <h4>Strong Curriculum</h4>
+                <p style="color: var(--text-secondary);">
+                    A realistic, phased path from foundation to production-grade LLM systems. 
+                    Resources that actually matter. No fluff.
+                </p>
+            </div>
+
+            <div class="factor-card">
+                <h4>Real-World Systems</h4>
+                <p style="color: var(--text-secondary);">
+                    Production-grade implementations. Observability, testing, security, 
+                    and scaling from week one.
+                </p>
+            </div>
+
+            <div class="factor-card">
+                <h4>Senior-Level Thinking</h4>
+                <p style="color: var(--text-secondary);">
+                    Failure postmortems, system design docs, cost-quality tradeoffs, 
+                    and debugging expertise.
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(0, 212, 255, 0.1);">
+            <h3 style="color: var(--text-secondary); margin-bottom: 2rem;">What You DON'T Have</h3>
+            <div style="background: rgba(26, 31, 58, 0.6); padding: 2rem; border-radius: 0.75rem; border: 1px solid rgba(157, 78, 221, 0.2);">
+                <ul style="list-style: none; color: var(--text-secondary);">
+                    <li style="margin-bottom: 1rem;"><span style="color: var(--accent-blue); font-weight: 600;">❌ Discipline</span> — You'll need to find that</li>
+                    <li style="margin-bottom: 1rem;"><span style="color: var(--accent-blue); font-weight: 600;">❌ Consistency</span> — 6 months is a long time to stay focused</li>
+                    <li><span style="color: var(--accent-blue); font-weight: 600;">❌ Tolerance for Debugging Misery</span> — There will be pain</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            The difference between "I learned about LLMs" and "I can build production LLM systems" 
+            is discipline, consistency, and willingness to embrace failure as learning.
+        </p>
+        <div class="meta">
+            <span>📅 Created: April 2026</span>
+            <span>⏱️ Duration: 24 Weeks</span>
+            <span>🎯 Target: Genuine Senior Level</span>
+        </div>
+        <p style="font-size: 0.9rem;">
+            "You only need 2–3 resources per topic. If you open 14 tabs, congratulations—you're not learning, 
+            you're decorating your anxiety."
+        </p>
+    </footer>
+</body>
+</html>
